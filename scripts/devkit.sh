@@ -16,6 +16,11 @@ touch /usr/bin/update-devkit.sh
 chmod a+x /usr/bin/update-devkit.sh
 cat <<EOF > /usr/bin/update-devkit.sh
 #!/bin/bash
+if [ "\$(id -u)" != "0" ]; then
+   echo "This script must be run as root" 1>&2
+   exit 1
+fi
+
 echo 'updating devkit'
 cd /opt/
 wget http://jaist.dl.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl

@@ -5,84 +5,101 @@
     },
     "variables": {
         "atlas_username": "{{env `ATLAS_USERNAME`}}",
-        "atlas_name": "{{env `ATLAS_NAME`}}"
+        "atlas_name": "{{env `ATLAS_NAME`}}",
+		"atlas_token": "{{env `ATLAS_TOKEN`}}",
+		"version": "0.2.0",
+		"iso_checksum": "8d52f3127f2b7ffa97698913b722e3219187476a9b936055d737f3e00aecd24d",
+		"iso_checksum_type": "sha256",
+		"iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-i386.iso",
+		"os_type": "Ubuntu"
     },
     "provisioners": [
         {
-            "type": "shell",
-            "scripts": [
-                "scripts/base.sh",
-                "scripts/virtualbox.sh",
-                "scripts/vmware.sh",
-                "scripts/vagrant.sh",
-                "scripts/dep.sh",
-                "scripts/cleanup.sh",
-				"scripts/devkit.sh",
-                "scripts/zerodisk.sh"
-            ],
-            "override": {
-                "virtualbox-iso": {
-                    "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
-                },
-                "vmware-iso": {
-                    "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
-                }
-            }
-        }
-    ],
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"script": "scripts/packages.sh",
+			"type": "shell"
+		},
+		{
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"script": "scripts/vagrant.sh",
+			"type": "shell"
+		},
+		{
+			"only": ["vmware"],
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"script": "scripts/vmware.sh",
+			"type": "shell"
+		},	
+		{
+			"only": ["vbox"],
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"script": "scripts/virtualbox.sh",
+			"type": "shell"
+		},
+		{
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"script": "scripts/devkit.sh",
+			"type": "shell"
+		},
+		{
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"script": "scripts/vm_cleanup.sh",
+			"type": "shell"
+		}
+		],
     "builders": [
         {
             "type": "virtualbox-iso",
             "boot_command": [
-                "<esc><esc><enter><wait>",
-                "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-                "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-                "hostname={{ .Name }} ",
-                "fb=false debconf/frontend=noninteractive ",
-                "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-                "initrd=/install/initrd.gz -- <enter>"
-            ],
+				"<enter><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+				"preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+				"hostname={{ .Name }} ",
+				"fb=false debconf/fronten=d=noninteractive ",
+				"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+				"initrd=/install/initrd.gz -- <enter>"
+			],
             "headless": true,
             "boot_wait": "10s",
             "disk_size": 20480,
-            "guest_os_type": "Ubuntu",
+            "guest_os_type": "{{user `os_type`}}",
+            "iso_checksum": "{{user `iso_checksum`}}",
+			"iso_checksum_type": "{{user `iso_checksum_type`}}",
+			"iso_url": "{{user `iso_url`}}",
             "http_directory": "http",
-            "iso_checksum": "bec39e79664aa189dea338993f636e54c5eda2f84c27def7b06bd6373ab87628",
-            "iso_checksum_type": "sha256",
-            "iso_url": "http://releases.ubuntu.com/precise/ubuntu-12.04.5-server-i386.iso",
             "ssh_username": "vagrant",
             "ssh_password": "vagrant",
             "ssh_port": 22,
             "ssh_wait_timeout": "10000s",
-            "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
+            "shutdown_command": "echo 'vagrant' | sudo -S poweroff",
             "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
             "virtualbox_version_file": ".vbox_version"
         },
         {
             "type": "vmware-iso",
             "boot_command": [
-                "<esc><esc><enter><wait>",
-                "/install/vmlinuz noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-                "debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-                "hostname={{ .Name }} ",
-                "fb=false debconf/frontend=noninteractive ",
-                "keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-                "initrd=/install/initrd.gz -- <enter>"
-            ],
+				"<enter><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+				"noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+				"hostname={{ .Name }} ",
+				"fb=false debconf/frontend=noninteractive ",
+				"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+				"initrd=/install/initrd.gz -- <enter>"
+			],
             "boot_wait": "10s",
             "disk_size": 20480,
-            "guest_os_type": "Ubuntu",
+            "guest_os_type": "{{user `os_type`}}",
             "headless": true,
             "http_directory": "http",
-            "iso_checksum": "bec39e79664aa189dea338993f636e54c5eda2f84c27def7b06bd6373ab87628",
-            "iso_checksum_type": "sha256",
-            "iso_url": "http://releases.ubuntu.com/precise/ubuntu-12.04.5-server-i386.iso",
+            "iso_checksum": "{{user `iso_checksum`}}",
+			"iso_checksum_type": "{{user `iso_checksum_type`}}",
+			"iso_url": "{{user `iso_url`}}",
             "skip_compaction": true,
             "ssh_username": "vagrant",
             "ssh_password": "vagrant",
             "ssh_port": 22,
             "ssh_wait_timeout": "10000s",
-            "shutdown_command": "echo '/sbin/halt -h -p' > shutdown.sh; echo 'vagrant'|sudo -S bash 'shutdown.sh'",
+            "shutdown_command": "echo 'vagrant' | sudo -S poweroff",
             "tools_upload_flavor": "linux"
         }
     ],
@@ -99,7 +116,7 @@
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "vmware_desktop",
-                "version": "0.1.0"
+                "version": "{{user `version`}}"
             }
         },
         {
@@ -110,7 +127,7 @@
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "virtualbox",
-                "version": "0.1.0"
+                "version": "{{user `version`}}"
             }
         }]
     ]
