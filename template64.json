@@ -99,7 +99,7 @@
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "vmware_desktop",
-                "version": "{{user `version`}}"
+                "version": "0.1.0"
             }
         },
         {
@@ -110,7 +110,7 @@
             "artifact_type": "vagrant.box",
             "metadata": {
                 "provider": "virtualbox",
-                "version": "{{user `version`}}"
+                "version": "0.1.0"
             }
         }]
     ]
