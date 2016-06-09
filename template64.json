@@ -10,7 +10,7 @@
 		"version": "0.3.2",
 		"iso_checksum": "b8b172cbdf04f5ff8adc8c2c1b4007ccf66f00fc6a324a6da6eba67de71746f6",
 		"iso_checksum_type": "sha256",
-		"iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso"
+		"iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
 		"build_cpu_cores": "1",
 		"build_memory": "2048",
 		"cpu_cores": "1",
@@ -156,7 +156,7 @@
         },
         {
             "type": "atlas",
-            "only": ["vmware-iso"],
+            "only": ["vmware"],
 			"token": "{{user `atlas_token`}}",
             "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
             "artifact_type": "vagrant.box",
@@ -167,7 +167,7 @@
         },
         {
             "type": "atlas",
-            "only": ["virtualbox-iso"],
+            "only": ["vbox"],
 			"token": "{{user `atlas_token`}}",
             "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
             "artifact_type": "vagrant.box",

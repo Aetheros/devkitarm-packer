@@ -156,7 +156,7 @@
         },
         {
             "type": "atlas",
-            "only": ["vmware-iso"],
+            "only": ["vmware"],
 			"token": "{{user `atlas_token`}}",
             "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
             "artifact_type": "vagrant.box",
@@ -167,7 +167,7 @@
         },
         {
             "type": "atlas",
-            "only": ["virtualbox-iso"],
+            "only": ["vbox"],
 			"token": "{{user `atlas_token`}}",
             "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}",
             "artifact_type": "vagrant.box",
