@@ -185,7 +185,7 @@
             "artifact": "{{user `atlas_username`}}/{{user `atlas_name`}}-64",
             "artifact_type": "vagrant.box",
             "metadata": {
-                "provider": "virtualbox",
+                "provider": "vmware_desktop",
                 "version": "{{user `version`}}"
             }
 		}
