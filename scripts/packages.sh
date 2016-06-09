@@ -10,6 +10,3 @@ apt-get remove -y plymouth-theme-ubuntu-text
 sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT="quiet"/GRUB_CMDLINE_LINUX_DEFAULT=""/' /etc/default/grub
 update-grub
 
-# Reboot with the new kernel
-shutdown -r now
-sleep 60
