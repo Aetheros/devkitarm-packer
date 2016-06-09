@@ -7,32 +7,40 @@
         "atlas_username": "{{env `ATLAS_USERNAME`}}",
         "atlas_name": "{{env `ATLAS_NAME`}}",
 		"atlas_token": "{{env `ATLAS_TOKEN`}}",
-		"version": "0.3.1",
+		"version": "0.3.2",
 		"iso_checksum": "b8b172cbdf04f5ff8adc8c2c1b4007ccf66f00fc6a324a6da6eba67de71746f6",
 		"iso_checksum_type": "sha256",
 		"iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso"
+		"build_cpu_cores": "1",
+		"build_memory": "2048",
+		"cpu_cores": "1",
+		"memory": "512",
+		"disk_size": "20480",
+		"headless": "true",
+		"ssh_username": "vagrant",
+		"ssh_password": "vagrant"
     },
     "provisioners": [
         {
 			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts/packages.sh",
-			"type": "shell"
-		},
-		{
-			"only": ["vmware-iso"],
-			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts/vmware.sh",
-			"type": "shell"
-		},	
-		{
-			"only": ["virtualbox-iso"],
-			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts/virtualbox.sh",
+			"script": "scripts-1604/packages.sh",
 			"type": "shell"
 		},
 		{
 			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts/vagrant.sh",
+			"script": "scripts-1604/vagrant.sh",
+			"type": "shell"
+		},
+		{
+			"only": ["vmware"],
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"script": "scripts-1604/vmware.sh",
+			"type": "shell"
+		},
+		{
+			"only": ["vbox"],
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"script": "scripts-1604/virtualbox.sh",
 			"type": "shell"
 		},
 		{
@@ -47,63 +55,99 @@
 		}
 		],
     "builders": [
-        {
-            "type": "virtualbox-iso",
-			"vm_name": "devkitarm-u1604-x64-vbox",
-            "boot_command": [
-				"<enter><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-				"preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-				"hostname={{ .Name }} ",
-				"fb=false debconf/fronten=d=noninteractive ",
-				"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-				"initrd=/install/initrd.gz -- <enter>"
+    {
+		  "name": "vmware",
+		  "vm_name": "ubuntu-1604-vmware",
+		  "boot_command": [
+			"<enter><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+			"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+			"hostname={{ .Name }} ",
+			"fb=false debconf/frontend=noninteractive ",
+			"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+			"initrd=/install/initrd.gz -- <enter>"
+		  ],
+		  "boot_wait": "5s",
+		  "disk_size": "{{user `disk_size`}}",
+		  "headless": "{{user `headless`}}",
+		  "http_directory": "http",
+		  "iso_checksum": "{{user `iso_checksum`}}",
+		  "iso_checksum_type": "{{user `iso_checksum_type`}}",
+		  "iso_url": "{{user `iso_url`}}",
+		  "shutdown_command": "echo 'vagrant' | sudo -S poweroff",
+		  "ssh_password": "{{user `ssh_username`}}",
+		  "ssh_username": "{{user `ssh_password`}}",
+		  "ssh_wait_timeout": "20m",
+		  "tools_upload_flavor": "linux",
+		  "type": "vmware-iso",
+		  "vmx_data": {
+			"cpuid.coresPerSocket": "1",
+			"memsize": "{{user `build_memory`}}",
+			"numvcpus": "{{user `build_cpu_cores`}}"
+		  },
+		  "vmx_data_post": {
+			"cpuid.coresPerSocket": "1",
+			"memsize": "{{user `memory`}}",
+			"numvcpus": "{{user `cpu_cores`}}"
+		  }
+		},
+		{
+		  "name": "vbox",
+		  "vm_name": "ubuntu-1604-vbox",
+		  "boot_command": [
+			"<enter><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
+			"preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
+			"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
+			"hostname={{ .Name }} ",
+			"fb=false debconf/fronten=d=noninteractive ",
+			"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
+			"initrd=/install/initrd.gz -- <enter>"
+		  ],
+		  "boot_wait": "5s",
+		  "disk_size": "{{user `disk_size`}}",
+		  "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
+		  "guest_os_type": "Ubuntu_64",
+		  "headless": "{{user `headless`}}",
+		  "http_directory": "http",
+		  "iso_checksum": "{{user `iso_checksum`}}",
+		  "iso_checksum_type": "{{user `iso_checksum_type`}}",
+		  "iso_url": "{{user `iso_url`}}",
+		  "shutdown_command": "echo 'vagrant' | sudo -S poweroff",
+		  "ssh_password": "{{user `ssh_username`}}",
+		  "ssh_username": "{{user `ssh_password`}}",
+		  "ssh_wait_timeout": "20m",
+		  "type": "virtualbox-iso",
+		  "vboxmanage": [
+			[
+			  "modifyvm",
+			  "{{.Name}}",
+			  "--memory",
+			  "{{user `build_memory`}}"
 			],
-            "headless": true,
-            "boot_wait": "10s",
-            "disk_size": 20480,
-            "guest_os_type": "Ubuntu_64",
-            "iso_checksum": "{{user `iso_checksum`}}",
-			"iso_checksum_type": "{{user `iso_checksum_type`}}",
-			"iso_url": "{{user `iso_url`}}",
-            "http_directory": "http",
-            "ssh_username": "vagrant",
-            "ssh_password": "vagrant",
-            "ssh_port": 22,
-            "ssh_wait_timeout": "10000s",
-            "shutdown_command": "echo 'vagrant' | sudo -S poweroff",
-            "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-            "virtualbox_version_file": ".vbox_version"
-        },
-        {
-            "type": "vmware-iso",
-			"vm_name": "devkitarm-u1604-x64-vmware",
-            "boot_command": [
-				"<enter><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
-				"noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
-				"debian-installer=en_US auto locale=en_US kbd-chooser/method=us ",
-				"hostname={{ .Name }} ",
-				"fb=false debconf/frontend=noninteractive ",
-				"keyboard-configuration/modelcode=SKIP keyboard-configuration/layout=USA keyboard-configuration/variant=USA console-setup/ask_detect=false ",
-				"initrd=/install/initrd.gz -- <enter>"
+			[
+			  "modifyvm",
+			  "{{.Name}}",
+			  "--cpus",
+			  "{{user `build_cpu_cores`}}"
+			]
+		  ],
+		  "vboxmanage_post": [
+			[
+			  "modifyvm",
+			  "{{.Name}}",
+			  "--memory",
+			  "{{user `memory`}}"
 			],
-            "boot_wait": "10s",
-            "disk_size": 20480,
-            "guest_os_type": "Ubuntu-64",
-            "headless": true,
-            "http_directory": "http",
-            "iso_checksum": "{{user `iso_checksum`}}",
-			"iso_checksum_type": "{{user `iso_checksum_type`}}",
-			"iso_url": "{{user `iso_url`}}",
-            "skip_compaction": true,
-            "ssh_username": "vagrant",
-            "ssh_password": "vagrant",
-            "ssh_port": 22,
-            "ssh_wait_timeout": "10000s",
-            "shutdown_command": "echo 'vagrant' | sudo -S poweroff",
-            "tools_upload_flavor": "linux"
-        }
-    ],
+			[
+			  "modifyvm",
+			  "{{.Name}}",
+			  "--cpus",
+			  "{{user `cpu_cores`}}"
+			]
+		  ],
+		  "virtualbox_version_file": ".vbox_version"
+		}
+	  ],
     "post-processors": [
         [{
             "type": "vagrant",
