@@ -2,6 +2,3 @@
 apt-get install -y open-vm-tools
 # Add /mnt/hgfs so the mount works automatically with Vagrant
 mkdir /mnt/hgfs
-
-shutdown -r now
-sleep 60
