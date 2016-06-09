@@ -4,6 +4,7 @@ apt-get upgrade -y
 
 # Update to the latest kernel
 apt-get install -y linux-generic linux-image-generic linux-server
+apt-get install -y nfs-common
 
 # Hide Ubuntu splash screen during OS Boot, so you can see if the boot hangs
 apt-get remove -y plymouth-theme-ubuntu-text

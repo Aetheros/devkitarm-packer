@@ -18,5 +18,3 @@ chown -R vagrant /home/vagrant/.ssh
 echo 'Development Environment' > /etc/motd
 
 # Install NFS for Vagrant
-apt-get update
-apt-get install -y nfs-common
