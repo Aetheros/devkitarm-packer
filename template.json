@@ -23,24 +23,24 @@
     "provisioners": [
         {
 			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts-1604/packages.sh",
+			"script": "scripts/packages.sh",
 			"type": "shell"
 		},
 		{
 			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts-1604/vagrant.sh",
+			"script": "scripts/vagrant.sh",
 			"type": "shell"
 		},
 		{
 			"only": ["vmware"],
 			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts-1604/vmware.sh",
+			"script": "scripts/vmware.sh",
 			"type": "shell"
 		},
 		{
 			"only": ["vbox"],
 			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts-1604/virtualbox.sh",
+			"script": "scripts/virtualbox.sh",
 			"type": "shell"
 		},
 		{
