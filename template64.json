@@ -42,7 +42,7 @@
 		},
 		{
 			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts/dev_packages.sh",
+			"script": "scripts/dev-packages.sh",
 			"type": "shell"
 		},
 		{
