@@ -1,4 +1,7 @@
 #!/bin/bash
+
+apt-get update
+apt-get -y install make automake autoconf gcc 
 cd /opt/
 wget http://jaist.dl.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
 chmod a+x devkitARMupdate.pl
