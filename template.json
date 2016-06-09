@@ -21,10 +21,16 @@
                 "scripts/zerodisk.sh"
             ],
             "override": {
-                "virtualbox-iso": {
+                "vb32": {
                     "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
                 },
-                "vmware-iso": {
+                "vm32": {
+                    "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+                },
+                "vb64": {
+                    "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
+                },
+                "vm64": {
                     "execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'"
                 }
             }
