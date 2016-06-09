@@ -1,7 +1,7 @@
 #!/bin/bash
 
 apt-get update
-apt-get -y install make automake autoconf gcc 
+apt-get -y install make automake autoconf gcc git mercurial wget curl subversion vim 
 cd /opt/
 wget http://jaist.dl.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
 chmod a+x devkitARMupdate.pl
