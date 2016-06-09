@@ -8,9 +8,9 @@
         "atlas_name": "{{env `ATLAS_NAME`}}",
 		"atlas_token": "{{env `ATLAS_TOKEN`}}",
 		"version": "0.3.0",
-		"iso_checksum": "8d52f3127f2b7ffa97698913b722e3219187476a9b936055d737f3e00aecd24d",
+		"iso_checksum": "b8b172cbdf04f5ff8adc8c2c1b4007ccf66f00fc6a324a6da6eba67de71746f6",
 		"iso_checksum_type": "sha256",
-		"iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-i386.iso"
+		"iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso"
     },
     "provisioners": [
         {
