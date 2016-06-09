@@ -19,11 +19,6 @@
 			"type": "shell"
 		},
 		{
-			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
-			"script": "scripts/vagrant.sh",
-			"type": "shell"
-		},
-		{
 			"only": ["vmware-iso"],
 			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
 			"script": "scripts/vmware.sh",
@@ -33,6 +28,11 @@
 			"only": ["virtualbox-iso"],
 			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
 			"script": "scripts/virtualbox.sh",
+			"type": "shell"
+		},
+		{
+			"execute_command": "echo 'vagrant' | {{.Vars}} sudo -E -S bash '{{.Path}}'",
+			"script": "scripts/vagrant.sh",
 			"type": "shell"
 		},
 		{
@@ -61,7 +61,7 @@
             "headless": true,
             "boot_wait": "10s",
             "disk_size": 20480,
-            "guest_os_type": "{{user `os_type`}}",
+            "guest_os_type": "Ubuntu_64",
             "iso_checksum": "{{user `iso_checksum`}}",
 			"iso_checksum_type": "{{user `iso_checksum_type`}}",
 			"iso_url": "{{user `iso_url`}}",
@@ -87,7 +87,7 @@
 			],
             "boot_wait": "10s",
             "disk_size": 20480,
-            "guest_os_type": "{{user `os_type`}}",
+            "guest_os_type": "Ubuntu-64",
             "headless": true,
             "http_directory": "http",
             "iso_checksum": "{{user `iso_checksum`}}",
