@@ -17,8 +17,8 @@
                 "scripts/vagrant.sh",
                 "scripts/dep.sh",
                 "scripts/cleanup.sh",
-                "scripts/zerodisk.sh",
-				"scripts/devkit.sh"
+				"scripts/devkit.sh",
+                "scripts/zerodisk.sh"
             ],
             "override": {
                 "virtualbox-iso": {

@@ -11,3 +11,16 @@ fi
 EOF
 
 rm *.tar.bz2
+
+touch /usr/bin/update-devkit.sh
+chmod a+x /usr/bin/update-devkit.sh
+cat <<EOF > /usr/bin/update-devkit.sh
+#!/bin/bash
+echo 'updating devkit'
+cd /home/vagrant/
+./devkitARMupdate.pl
+
+echo 'removing downloaded files'
+rm *.tar.bz2
+EOF
+
