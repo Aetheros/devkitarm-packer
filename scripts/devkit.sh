@@ -1,15 +1,12 @@
 #!/bin/bash
-
-apt-get update
-apt-get -y install make automake autoconf gcc git mercurial wget curl subversion vim 
-cd /opt/
+cd ~
 wget http://jaist.dl.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
 chmod a+x devkitARMupdate.pl
 ./devkitARMupdate.pl
 
-echo "export DEVKITPRO=/opt/devkitPro" >> ~/.bashrc
-echo "export DEVKITARM=/opt/devkitPro/devkitARM" >> ~/.bashrc
-echo "export PATH=$PATH:/opt/devkitPro/devkitARM/bin" >> ~/.bashrc
+echo "export DEVKITPRO=/home/vagrant/devkitPro" >> ~/.bashrc
+echo "export DEVKITARM=/home/vagrant/devkitPro/devkitARM" >> ~/.bashrc
+echo "export PATH=$PATH:/home/vagrant/devkitPro/devkitARM/bin" >> ~/.bashrc
 source ~/.bashrc
 
 rm *.tar.bz2
@@ -19,13 +16,8 @@ touch /usr/bin/update-devkit.sh
 chmod a+x /usr/bin/update-devkit.sh
 cat <<EOF > /usr/bin/update-devkit.sh
 #!/bin/bash
-if [ "\$(id -u)" != "0" ]; then
-   echo "This script must be run as root" 1>&2
-   exit 1
-fi
-
 echo 'updating devkit'
-cd /opt/
+cd ~
 wget http://jaist.dl.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
 chmod a+x devkitARMupdate.pl
 ./devkitARMupdate.pl
@@ -35,7 +27,7 @@ while getopts ":-:" opt; do
 		-)
 			case "\${OPTARG}" in
 				keep-files)
-					echo "Keeping downloaded files in opt directory, you should move them out of there."
+					echo "Keeping downloaded files in home directory, you should move them out of there."
 					exit 0
 					;;
 				*) 
