@@ -15,7 +15,7 @@
 		"iso_url": "http://releases.ubuntu.com/16.04/ubuntu-16.04-server-amd64.iso",
 		"ssh_username": "vagrant",
 		"ssh_password": "vagrant",
-		"os_type" : "Ubuntu-64",
+		"os_type" : "Ubuntu",
 		"atlas_username": "{{env `ATLAS_USERNAME`}}",
         "atlas_name": "{{env `ATLAS_NAME`}}",
 		"atlas_token": "{{env `ATLAS_TOKEN`}}",
@@ -59,7 +59,7 @@
     {
       "name": "vmware",
       "vm_name": "ubuntu-1604-vmware",
-	  "guest_os_type": "{{user `os_type`}}",
+	  "guest_os_type": "{{user `os_type`}}-64",
       "boot_command": [
         "<enter><f6><esc><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs><bs>",
         "noapic preseed/url=http://{{ .HTTPIP }}:{{ .HTTPPort }}/preseed.cfg ",
@@ -108,7 +108,7 @@
       "boot_wait": "5s",
       "disk_size": "{{user `disk_size`}}",
       "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-      "guest_os_type": "{{user `os_type`}}",
+      "guest_os_type": "{{user `os_type`}}_64",
       "headless": "{{user `headless`}}",
       "http_directory": "http",
       "iso_checksum": "{{user `iso_checksum`}}",
