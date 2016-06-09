@@ -79,6 +79,7 @@
 		  "ssh_username": "{{user `ssh_password`}}",
 		  "ssh_wait_timeout": "20m",
 		  "tools_upload_flavor": "linux",
+		  "guest_os_type": "Ubuntu",
 		  "type": "vmware-iso",
 		  "vmx_data": {
 			"cpuid.coresPerSocket": "1",
@@ -106,7 +107,7 @@
 		  "boot_wait": "5s",
 		  "disk_size": "{{user `disk_size`}}",
 		  "guest_additions_path": "VBoxGuestAdditions_{{.Version}}.iso",
-		  "guest_os_type": "Ubuntu_64",
+		  "guest_os_type": "Ubuntu",
 		  "headless": "{{user `headless`}}",
 		  "http_directory": "http",
 		  "iso_checksum": "{{user `iso_checksum`}}",
