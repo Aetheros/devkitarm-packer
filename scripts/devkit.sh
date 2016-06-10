@@ -1,45 +1,22 @@
 #!/bin/bash
-cd ~
-wget http://jaist.dl.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
-chmod a+x devkitARMupdate.pl
-./devkitARMupdate.pl
+apt-get install -y git mercurial subversion vim curl wget screen automake autoconf libtool cmake
 
 echo "export DEVKITPRO=/home/vagrant/devkitPro" >> ~/.bashrc
 echo "export DEVKITARM=/home/vagrant/devkitPro/devkitARM" >> ~/.bashrc
 echo "export PATH=$PATH:/home/vagrant/devkitPro/devkitARM/bin" >> ~/.bashrc
 source ~/.bashrc
 
-rm *.tar.bz2
-rm devkitARMupdate.pl
+cd /usr/bin
+wget http://$HTTPSERV:$HTTPPORT/update-devkit
+wget http://$HTTPSERV:$HTTPPORT/update-portlibs
+wget http://$HTTPSERV:$HTTPPORT/update-sflibs
 
-touch /usr/bin/update-devkit.sh
-chmod a+x /usr/bin/update-devkit.sh
-cat <<EOF > /usr/bin/update-devkit.sh
-#!/bin/bash
-echo 'updating devkit'
-cd ~
-wget http://jaist.dl.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
-chmod a+x devkitARMupdate.pl
-./devkitARMupdate.pl
+chmod a+x update-devkit update-portlibs update-sflibs
 
-while getopts ":-:" opt; do
-    case \${opt} in
-		-)
-			case "\${OPTARG}" in
-				keep-files)
-					echo "Keeping downloaded files in home directory, you should move them out of there."
-					exit 0
-					;;
-				*) 
-					echo "Invaild option: -\$optarg. Proceeding to remove downloaded files!" >&2
-					;;
-			esac
-		\?)
-			echo "Invaild option: -\$optarg. Proceeding to remove downloaded files!" >&2
-			;;
-	esac
-done
-echo 'removing downloaded files'
-rm *.tar.bz2
-rm devkitARMupdate.pl
-EOF
+update-devkit
+update-portlibs
+update-sflibs
+
+echo "chowning all files in vagrant folder"
+
+chown -R vagrant:vagrant /home/vagrant/

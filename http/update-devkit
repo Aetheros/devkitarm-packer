@@ -1,0 +1,11 @@
+#!/bin/bash
+
+mkdir -p /opt/devkit/
+cd /opt/devkit/
+wget http://jaist.dl.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
+chmod a+x devkitARMupdate.pl
+./devkitARMupdate.pl
+
+echo "removing updater script to prevent accidental execution"
+
+rm devkitARMupdate.pl

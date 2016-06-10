@@ -1,0 +1,25 @@
+mkdir -p /home/vagrant/sflibs/
+cd /home/vagrant/sflibs/
+if ![ -d /home/vagrant/sf2dlib ]; then
+	git clone https://github.com/xerpi/sf2dlib.git
+	git clone https://github.com/xerpi/sftdlib.git
+	git clone https://github.com/xerpi/sfillib.git
+fi
+
+cd sf2dlib/
+git pull
+cd libsf2d
+
+make clean all install
+
+cd ../../sftdlib
+git pull
+cd libsftd
+
+make clean all install
+
+cd ../../sfillib
+git pull
+cd libsfil
+
+make clean all install

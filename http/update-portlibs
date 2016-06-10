@@ -1,0 +1,16 @@
+cd /home/vagrant/
+git clone "https://github.com/devkitPro/3ds_portlibs.git"
+cd "3ds_portlibs"
+git pull
+make clean
+make zlib
+make install-zlib
+make freetype 
+make libexif 
+make libjpeg-turbo 
+make libpng
+make jansson
+make libxmp-lite
+make sqlite
+make tinyxml2
+make install
