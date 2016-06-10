@@ -33,10 +33,6 @@
         {
 			"execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'",
             "type": "shell",
-			"environment_vars": [
-				"HTTPSERV={{ .HTTPIP }}",
-				"HTTPPORT={{ .HTTPPort }}"
-			],
             "scripts": [
                 "scripts/vagrant.sh",
                 "scripts/dep.sh",

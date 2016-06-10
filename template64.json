@@ -32,10 +32,6 @@
 		},
         {
             "type": "shell",
-			"environment_vars": [
-				"HTTPSERV={{ .HTTPIP }}",
-				"HTTPPORT={{ .HTTPPort }}"
-			],
 			"execute_command": "echo 'vagrant'|sudo -S bash '{{.Path}}'",
             "scripts": [
                 "scripts/vagrant.sh",
