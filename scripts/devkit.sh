@@ -7,7 +7,7 @@ echo "export PATH=$PATH:/home/vagrant/devkitPro/devkitARM/bin" >> ~/.bashrc
 source ~/.bashrc
 
 
-echo <<EOF > /usr/bin/update-devkit
+cat <<EOF > /usr/bin/update-devkit
 #!/bin/bash
 
 mkdir -p /opt/devkit/
@@ -22,7 +22,7 @@ rm devkitARMupdate.pl
 EOF
 
 
-echo <<EOF > /usr/bin/update-portlibs
+cat <<EOF > /usr/bin/update-portlibs
 #!/bin/bash
 
 cd /home/vagrant/
@@ -44,7 +44,7 @@ make install
 
 EOF
 
-echo <<EOF > /usr/bin/update-sflibs
+cat <<EOF > /usr/bin/update-sflibs
 #!/bin/bash
 
 mkdir -p /home/vagrant/sflibs/
