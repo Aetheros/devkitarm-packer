@@ -6,6 +6,9 @@ echo "export DEVKITARM=/home/vagrant/devkitPro/devkitARM" >> ~/.bashrc
 echo "export PATH=$PATH:/home/vagrant/devkitPro/devkitARM/bin" >> ~/.bashrc
 source ~/.bashrc
 
+export DEVKITPRO=/home/vagrant/devkitPro
+export DEVKITARM=/home/vagrant/devkitPro/devkitARM
+export PATH=$PATH:/home/vagrant/devkitPro/devkitARM/bin
 
 cat <<EOF > /usr/bin/update-devkit
 #!/bin/bash
@@ -49,7 +52,7 @@ cat <<EOF > /usr/bin/update-sflibs
 
 mkdir -p /home/vagrant/sflibs/
 cd /home/vagrant/sflibs/
-if ![ -d /home/vagrant/sf2dlib ]; then
+if ! [ -d '/home/vagrant/sf2dlib' ]; then
 	git clone https://github.com/xerpi/sf2dlib.git
 	git clone https://github.com/xerpi/sftdlib.git
 	git clone https://github.com/xerpi/sfillib.git
