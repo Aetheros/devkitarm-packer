@@ -20,10 +20,3 @@ update-sflibs
 echo "chowning all files in vagrant folder"
 
 chown -R vagrant:vagrant /home/vagrant/
-
-# Set up sudo
-echo "%vagrant ALL=NOPASSWD:ALL" > /etc/sudoers.d/vagrant
-chmod 0440 /etc/sudoers.d/vagrant
-
-# Setup sudo to allow no-password sudo for "sudo"
-usermod -a -G sudo vagrant
