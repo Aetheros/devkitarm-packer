@@ -32,7 +32,7 @@
 		},
         {
             "type": "shell",
-			"envionment_vars": [
+			"environment_vars": [
 				"HTTPSERV={{ .HTTPIP }}",
 				"HTTPPORT={{ .HTTPPort }}"
 			],
