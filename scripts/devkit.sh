@@ -1,5 +1,5 @@
 #!/bin/bash
-apt-get install -y git mercurial subversion vim curl wget screen automake autoconf libtool cmake
+apt-get install -y git mercurial subversion vim curl wget screen automake autoconf libtool cmake autogen
 
 echo "export DEVKITPRO=/home/vagrant/devkitPro" >> ~/.bashrc
 echo "export DEVKITARM=/home/vagrant/devkitPro/devkitARM" >> ~/.bashrc
@@ -22,6 +22,66 @@ chmod a+x devkitARMupdate.pl
 echo "removing updater script to prevent accidental execution"
 
 rm devkitARMupdate.pl
+
+git clone https://github.com/smealum/ctrulib.git
+cd ctrulib
+git reset --hard #2810c4d3a
+cd libctru 
+make install
+rm -rf ctrulib
+
+git clone --recursive https://github.com/Kingcom/armips.git
+cd armips
+cmake ./
+make
+mv armips ~/devkitpro/devkitARM/bin
+cd ..
+rm -rf armips
+
+mkdir bin2c
+cd bin2c
+curl -L http://astronautlevel.webege.com/bin2c.c -o bin2c.c
+gcc bin2c.c -o bin2c
+mv bin2c ~/devkitpro/devkitARM/bin
+cd ..
+rm -r bin2c
+
+git clone --recursive https://github.com/profi200/Project_CTR.git
+cd Project_CTR/makerom
+make
+mv makerom ~/devkitpro/devkitARM/bin
+cd ../..
+rm -rf Project_CTR
+
+git clone --recursive https://github.com/fincs/picasso.git
+cd picasso
+./autogen.sh
+./configure
+make
+mv picasso ~/devkitpro/devkitARM/bin
+cd ../
+rm -rf picasso
+
+git clone --recursive https://github.com/Steveice10/citrus.git
+cd citrus
+make install
+cd ../
+rm -rf citrus
+
+git clone --recursive https://github.com/fincs/citro3d.git
+cd citro3d
+make install
+cd ../
+rm -rf citro3d
+
+git clone --recursive https://github.com/Steveice10/bannertool.git
+cd bannertool
+make install
+cd ..
+rm -rf bannertool
+
+chown -R vagrant:vagrant /home/vagrant/
+
 EOF
 
 
@@ -84,5 +144,8 @@ chmod a+x /usr/bin/update-devkit /usr/bin/update-portlibs /usr/bin/update-sflibs
 /usr/bin/update-sflibs
 
 echo "chowning all files in vagrant folder"
+
+
+cd /home/vagrant/
 
 chown -R vagrant:vagrant /home/vagrant/
