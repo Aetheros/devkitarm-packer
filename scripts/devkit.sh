@@ -23,7 +23,7 @@ mkdir -p /home/vagrant/devkitupdate
 cd /home/vagrant/devkitupdate
 wget http://jaist.dl.sourceforge.net/project/devkitpro/Automated%20Installer/devkitARMupdate.pl
 chmod a+x devkitARMupdate.pl
-./devkitARMupdate.pl
+rm -rf /home/vagrant/devkitupdate
 
 echo "removing updater script to prevent accidental execution"
 
@@ -153,7 +153,7 @@ chmod a+x devkitARMupdate.pl
 
 echo "removing updater script to prevent accidental execution"
 
-rm devkitARMupdate.pl
+rm -rf /home/vagrant/devkitupdate
 
 git clone https://github.com/smealum/ctrulib.git
 cd ctrulib
